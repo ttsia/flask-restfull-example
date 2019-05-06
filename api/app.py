@@ -1,25 +1,15 @@
+from api.common.urls import common_blueprint
 from api.users.urls import user_blueprint
 from flask import Flask
-from flask_restful import Api
-from api.common import views as common_views
 from . import current_config
 
 APP = Flask(__name__)
 APP.config.from_object(current_config)
 
-API = Api(APP)
+# TODO replace all blueprint registration on separate file
 
 # users app views
 APP.register_blueprint(user_blueprint)
 
-# common app views
-API.add_resource(
-    common_views.Index,
-    '/'
-)
-
-# test db connection
-API.add_resource(
-    common_views.Heartbeat,
-    '/heartbeat'
-)
+# main app views
+APP.register_blueprint(common_blueprint)
