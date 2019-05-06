@@ -14,4 +14,10 @@ API.add_resource(
     '/'
 )
 
+# test db connection
+API.add_resource(
+    common_views.Heartbeat,
+    '/heartbeat'
+)
+
 # users app views
