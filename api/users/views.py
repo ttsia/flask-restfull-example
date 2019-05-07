@@ -32,7 +32,6 @@ class UsersLoginView(Resource):
         return Response(dumps(response), mimetype='application/json')
 
     def post(self):
-        # TODO move parser to other file
         parser = reqparse.RequestParser()
         parser.add_argument('username', help='Required field', required=True)
         parser.add_argument('password', help='Required field', required=True)
@@ -44,19 +43,21 @@ class UsersLoginView(Resource):
             hashed_password = bcrypt.generate_password_hash(args['password']).decode('utf-8')
             user_id = users_db.create_user({'username': args['username'], 'password': hashed_password})
             jwt = create_access_token(str(user_id))
-            return {
-                    'message': 'User <{0}> was successfully created: id={1}'.format(args['username'], user_id),
-                    'jwt': jwt
-                }
+            response, status = {
+                'message': 'User <{0}> was successfully created: id={1}'.format(args['username'], user_id),
+                'jwt': jwt
+            }, 201
         else:
             # check password of existing user and create new jwt token
             if bcrypt.check_password_hash(existing_user[0]['password'], args['password']):
                 jwt = create_access_token(str(existing_user[0]['_id']))
-                return {
-                    'message': 'User was successfully logged in',
+                response, status = {
+                    'message': 'User <{0}> was successfully logged in'.format(existing_user[0]['username']),
                     'jwt': jwt
-                }
+                }, 200
             else:
-                return {
+                response, status = {
                     'message': 'Invalid user password'
-                }
+                }, 400
+
+        return Response(dumps(response), status=status, mimetype='application/json')

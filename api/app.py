@@ -20,5 +20,6 @@ APP.register_blueprint(common_blueprint)
 # items app views
 APP.register_blueprint(items_blueprint)
 
+# jwt initialization
 jwt = JWTManager(APP)
 
