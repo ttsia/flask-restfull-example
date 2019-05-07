@@ -2,7 +2,7 @@ from api.common.urls import common_blueprint
 from api.users.urls import user_blueprint
 from api.items.urls import items_blueprint
 from flask import Flask
-from . import current_config
+from settings import current_config
 
 APP = Flask(__name__)
 APP.config.from_object(current_config)
