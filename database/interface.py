@@ -45,7 +45,7 @@ def update_item(item_id, item_data):
         )
         return response.acknowledged
     except InvalidId as ex:
-        return ex
+        print(ex)
 
 def delete_item(item_id):
     """
@@ -55,4 +55,4 @@ def delete_item(item_id):
         response = ITEMS_DB.items.delete_one({"_id": ObjectId(item_id)})
         return response.acknowledged
     except InvalidId as ex:
-        return ex
+        print(ex)
