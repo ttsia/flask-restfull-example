@@ -1,9 +1,8 @@
 from flask_restful import Resource
-from flask import request, Response, jsonify
+from flask import request, Response
 from bson.json_util import dumps
 from database import items
 
-# TODO: return error messages
 
 class Item(Resource):
     """
