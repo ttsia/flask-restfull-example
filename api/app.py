@@ -1,6 +1,7 @@
 from api.common.urls import common_blueprint
 from api.users.urls import user_blueprint
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from . import current_config
 
 APP = Flask(__name__)
@@ -13,3 +14,4 @@ APP.register_blueprint(user_blueprint)
 
 # main app views
 APP.register_blueprint(common_blueprint)
+jwt = JWTManager(APP)

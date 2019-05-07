@@ -9,10 +9,11 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from api.users.views import UsersView
+from api.users.views import UsersView, UsersLoginView
 
 user_blueprint = Blueprint('users', __name__)
 user_urls = Api(user_blueprint)
 
 # url schema
 user_urls.add_resource(UsersView, '/users')
+user_urls.add_resource(UsersLoginView, '/users/login')
