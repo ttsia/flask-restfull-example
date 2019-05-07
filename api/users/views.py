@@ -26,6 +26,17 @@ class UsersView(Resource):
         return Response(dumps(response), mimetype='application/json')
 
 
+class UserView(Resource):
+
+    @jwt_required
+    def get(self):
+        """
+        Getting info about user from JWT
+        """
+        response = users_db.get_user_by_id(get_jwt_identity())
+        return Response(dumps(response), mimetype='application/json')
+
+
 class UserLogout(Resource):
 
     @jwt_required
@@ -44,14 +55,6 @@ class UserLogout(Resource):
 
 
 class UsersLoginView(Resource):
-
-    @jwt_required
-    def get(self):
-        """
-        Getting info about user from JWT
-        """
-        response = users_db.get_user_by_id(get_jwt_identity())
-        return Response(dumps(response), mimetype='application/json')
 
     def post(self):
         """
