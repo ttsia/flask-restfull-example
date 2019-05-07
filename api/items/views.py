@@ -3,12 +3,14 @@ from flask import request, Response
 from bson.json_util import dumps
 from database import interface
 
+
 # TODO: return error messages
 
 class Item(Resource):
     """
     Shows a single item and lets you delete/update a item.
     """
+
     def get(self, item_id):
         response = interface.get_item(item_id)
         return Response(dumps(response), mimetype='application/json')
@@ -27,10 +29,11 @@ class ItemList(Resource):
     """
     Shows a list of all items, and lets you POST to add new items.
     """
+
     def get(self):
         response = interface.get_all_items()
         return Response(dumps(response), mimetype='application/json')
-    
+
     def post(self):
         item_data = request.get_json()
         response = interface.create_item(item_data)

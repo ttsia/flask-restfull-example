@@ -1,5 +1,5 @@
 FLASK_APP = api.app
 FLASK_ENV = develop
-MONGO_USER=
-MONGO_PASSWORD=
-MONGO_HOST=
+MONGO_USER=user_name
+MONGO_PASSWORD=user_pwd
+MONGO_HOST=example.mongodb.net
