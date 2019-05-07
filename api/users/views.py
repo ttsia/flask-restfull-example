@@ -5,49 +5,31 @@
 # Created: 2019-05-06
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
-from api.db import get_client
-from api.users.models import User
+from bson.json_util import dumps
+from database import users as users_db
 
-from flask import request, g
+from flask import Response
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_restful import Resource, reqparse
+from flask_bcrypt import Bcrypt
 
-from api.auth import auth, bcrypt
+bcrypt = Bcrypt()
 
 
 class UsersView(Resource):
 
-    # @auth.login_required
     @jwt_required
     def get(self):
-        client = get_client()
-        UserDB = client.users
-        response = UserDB.users.find()
-        print(list(response))
-        data = {
-            'method': request.method,
-            'username': auth.username(),
-            # 'g': g.current_user,
-            'get_auth': auth.get_auth()
-        }
-
-        return data
-
-    @auth.login_required
-    def post(self):
-        data = {
-            'method': request.method
-        }
-        return data
+        response = users_db.get_all_users()
+        return Response(dumps(response), mimetype='application/json')
 
 
 class UsersLoginView(Resource):
 
     @jwt_required
     def get(self):
-        a = get_jwt_identity()
-        print("a ", a)
-        return {}
+        response = users_db.get_user_by_id(get_jwt_identity())
+        return Response(dumps(response), mimetype='application/json')
 
     def post(self):
         # TODO move parser to other file
@@ -55,26 +37,26 @@ class UsersLoginView(Resource):
         parser.add_argument('username', help='Required field', required=True)
         parser.add_argument('password', help='Required field', required=True)
         args = parser.parse_args()
-        print("parser ", args)
-        # TODO database handling
-        data = {
-            'method': request.method,
-            'username': auth.username()
-        }
 
-        hashed_password = bcrypt.generate_password_hash(args['password']).decode('utf-8')
-
-
-
-
-        # client = get_client()
-        # UserDB = client.users
-        # response = UserDB.users.insert_one({'username': args['username'], 'password': hashed_password})
-        # print("response ", response.inserted_id)
-        #
-        # create_access_token()
-        jwt = create_access_token("qwerty")
-        print("jwt ", jwt)
-        return {
-            'jwt': jwt
-        }
+        existing_user = users_db.get_user_by_username(args['username'])
+        if not existing_user:
+            # Create new user
+            hashed_password = bcrypt.generate_password_hash(args['password']).decode('utf-8')
+            user_id = users_db.create_user({'username': args['username'], 'password': hashed_password})
+            jwt = create_access_token(str(user_id))
+            return {
+                    'message': 'User <{0}> was successfully created: id={1}'.format(args['username'], user_id),
+                    'jwt': jwt
+                }
+        else:
+            # check password of existing user and create new jwt token
+            if bcrypt.check_password_hash(existing_user[0]['password'], args['password']):
+                jwt = create_access_token(str(existing_user[0]['_id']))
+                return {
+                    'message': 'User was successfully logged in',
+                    'jwt': jwt
+                }
+            else:
+                return {
+                    'message': 'Invalid user password'
+                }
