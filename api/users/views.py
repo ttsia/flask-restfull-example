@@ -9,6 +9,8 @@
 from flask import request
 from flask_restful import Resource
 
+from api.auth import auth
+
 
 class UsersView(Resource):
 
@@ -18,6 +20,7 @@ class UsersView(Resource):
         }
         return data
 
+    @auth.login_required
     def post(self):
         data = {
             'method': request.method
