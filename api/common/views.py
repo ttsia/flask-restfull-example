@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import jsonify
-from api.db import get_client
+from database import get_client
 
 
 class Index(Resource):
