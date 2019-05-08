@@ -1,3 +1,4 @@
+from api.metrics.urls import metrics_blueprint
 from api.users.urls import user_blueprint
 from api.items.urls import items_blueprint
 from web_apps.common.urls import common_blueprint
@@ -22,6 +23,9 @@ APP.register_blueprint(common_blueprint)
 
 # items app views
 APP.register_blueprint(items_blueprint)
+
+# metrics app views
+APP.register_blueprint(metrics_blueprint)
 
 # jwt initialization
 jwt = JWTManager(APP)
