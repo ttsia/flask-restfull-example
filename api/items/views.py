@@ -8,6 +8,7 @@ class Item(Resource):
     """
     Shows a single item and lets you delete/update a item.
     """
+
     def get(self, item_id):
         response = items.get_item(item_id)
         try:
@@ -44,10 +45,11 @@ class ItemList(Resource):
     """
     Shows a list of all items, and lets you POST to add new items.
     """
+
     def get(self):
         response = items.get_all_items()
         return Response(dumps(response), mimetype='application/json')
-    
+
     def post(self):
         item_data = request.get_json()
         response = items.create_item(item_data)
