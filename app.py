@@ -27,7 +27,7 @@ def create_app(config=None):
     app.register_blueprint(items_blueprint)
 
     # metrics app views
-    APP.register_blueprint(metrics_blueprint)
+    app.register_blueprint(metrics_blueprint)
 
     # jwt initialization
     jwt = JWTManager(app)
