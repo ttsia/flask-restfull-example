@@ -41,3 +41,14 @@ class Config(object):
             ),
         }
     }
+
+    """
+    PYLINT SETTINGS.
+    Include files to be checked with full path as <file.py>
+    Include modules to be checked with full path as <module/.>
+    """
+    PYLINT_SETTINGS = {
+        "include": ['api/.', 'database/.', 'settings/.', 'web_apps/.', 'app.py'],
+        "report_directory_name": "data",
+        "report_file_name": "report.txt"
+    }
