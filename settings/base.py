@@ -4,6 +4,9 @@ import os
 class Config(object):
     DEBUG = False
 
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    STATIC_DIR = '{}/{}'.format(BASE_DIR, 'static')
+
     MONGO_DATABASES = {
         "app": {
             "username": os.environ.get('MONGO_USER'),
