@@ -44,7 +44,7 @@ class UserLogout(Resource):
         """
         User log out
         """
-        from api.app import blacklist
+        from app import blacklist
 
         jti = get_raw_jwt()['jti']
         blacklist.add(jti)
