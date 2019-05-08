@@ -4,16 +4,24 @@ from api.items.urls import items_blueprint
 from flask import Flask
 from settings import current_config
 
-APP = Flask(__name__)
-APP.config.from_object(current_config)
 
-# TODO replace all blueprint registration on separate file
+def create_app(config=None):
+    config = config or {}
 
-# users app views
-APP.register_blueprint(user_blueprint)
+    app = Flask(__name__)
+    app.config.from_object(config)
 
-# main app views
-APP.register_blueprint(common_blueprint)
+    # TODO replace all blueprint registration on separate file
 
-# items app views
-APP.register_blueprint(items_blueprint)
+    # users app views
+    app.register_blueprint(user_blueprint)
+
+    # main app views
+    app.register_blueprint(common_blueprint)
+
+    # items app views
+    app.register_blueprint(items_blueprint)
+    return app
+
+
+APP = create_app(current_config)
