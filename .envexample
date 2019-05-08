@@ -1,4 +1,4 @@
-FLASK_APP = api.app
+FLASK_APP = app
 FLASK_ENV = develop
 MONGO_USER=user_name
 MONGO_PASSWORD=user_pwd
