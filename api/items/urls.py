@@ -1,6 +1,6 @@
-from .views import ItemList, Item
 from flask import Blueprint
 from flask_restful import Api
+from .views import ItemList, Item
 
 
 ITEMS_BLUEPRINT = Blueprint('items', __name__)

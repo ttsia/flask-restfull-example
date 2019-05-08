@@ -1,6 +1,6 @@
-from . import get_client
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
+from . import get_client
 
 CLIENT = get_client()
 USERS_DB = CLIENT.users
@@ -44,28 +44,3 @@ def create_user(user_data):
     """
     response = USERS_DB.users.insert_one(user_data)
     return response.inserted_id
-
-# def update_item(item_id, item_data):
-#     """
-#     :param item_data
-#     :type dict
-#     :return bool
-#     """
-#     try:
-#         response = ITEMS_DB.items.update_one(
-#             {"_id": ObjectId(item_id)},
-#             {"$set": item_data}
-#         )
-#         return response.acknowledged
-#     except InvalidId as ex:
-#         return ex
-#
-# def delete_item(item_id):
-#     """
-#     :return bool
-#     """
-#     try:
-#         response = ITEMS_DB.items.delete_one({"_id": ObjectId(item_id)})
-#         return response.acknowledged
-#     except InvalidId as ex:
-#         return ex

@@ -1,11 +1,10 @@
+from flask import Flask
+from flask_jwt_extended import JWTManager
+from settings import current_config
+from web.common.urls import common_blueprint
 from api.metrics.urls import METRICS_BLUEPRINT
 from api.users.urls import USERS_BLUEPRINT
 from api.items.urls import ITEMS_BLUEPRINT
-from web.common.urls import common_blueprint
-from flask import Flask
-from settings import current_config
-
-from flask_jwt_extended import JWTManager
 
 
 def create_app(config=None):

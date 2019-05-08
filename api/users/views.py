@@ -6,11 +6,11 @@
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
 from bson.json_util import dumps
-from database import users as users_db
 from flask import Response
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_raw_jwt
 from flask_restful import Resource, reqparse
 from flask_bcrypt import Bcrypt
+from database import users as users_db
 
 bcrypt = Bcrypt()
 

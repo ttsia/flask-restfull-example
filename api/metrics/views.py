@@ -5,10 +5,10 @@
 # Created: 2019-05-08
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
-from api.metrics.utils import generate_report
 import os
 from flask import Response
 from flask.views import MethodView
+from api.metrics.utils import generate_report
 
 
 class MetricsView(MethodView):
