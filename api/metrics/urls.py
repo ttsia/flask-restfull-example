@@ -5,14 +5,13 @@
 # Created: 2019-05-08
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
-from api.metrics.views import MetricsView
-
 from flask import Blueprint
 from flask_restful import Api
+from api.metrics.views import MetricsView
 
 
-metrics_blueprint = Blueprint('metrics', __name__)
-metrics_urls = Api(metrics_blueprint)
+METRICS_BLUEPRINT = Blueprint('metrics', __name__)
+METRICS_URLS = Api(METRICS_BLUEPRINT)
 
 # url schema
-metrics_urls.add_resource(MetricsView, '/metrics')
+METRICS_URLS.add_resource(MetricsView, '/metrics')

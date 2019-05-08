@@ -1,6 +1,6 @@
-from api.metrics.urls import metrics_blueprint
-from api.users.urls import user_blueprint
-from api.items.urls import items_blueprint
+from api.metrics.urls import METRICS_BLUEPRINT
+from api.users.urls import USERS_BLUEPRINT
+from api.items.urls import ITEMS_BLUEPRINT
 from web.common.urls import common_blueprint
 from flask import Flask
 from settings import current_config
@@ -18,16 +18,16 @@ def create_app(config=None):
     # TODO replace all blueprint registration on separate file
 
     # users app views
-    app.register_blueprint(user_blueprint)
+    app.register_blueprint(USERS_BLUEPRINT)
 
     # templates app views
     app.register_blueprint(common_blueprint)
 
     # items app views
-    app.register_blueprint(items_blueprint)
+    app.register_blueprint(ITEMS_BLUEPRINT)
 
     # metrics app views
-    app.register_blueprint(metrics_blueprint)
+    app.register_blueprint(METRICS_BLUEPRINT)
 
     # jwt initialization
     jwt = JWTManager(app)
