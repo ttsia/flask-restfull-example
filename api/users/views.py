@@ -5,17 +5,24 @@
 # Created: 2019-05-06
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
+"""
+Users endpoints handling
+"""
 from bson.json_util import dumps
 from flask import Response
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_raw_jwt
 from flask_restful import Resource, reqparse
 from flask_bcrypt import Bcrypt
 from database import users as users_db
+from settings.jwt_auth import BLACKLIST
 
-bcrypt = Bcrypt()
+BCRYPT = Bcrypt()
 
 
 class UsersView(Resource):
+    """
+    Users list
+    """
 
     @jwt_required
     def get(self):
@@ -27,6 +34,9 @@ class UsersView(Resource):
 
 
 class UserView(Resource):
+    """
+    User info
+    """
 
     @jwt_required
     def get(self):
@@ -38,16 +48,17 @@ class UserView(Resource):
 
 
 class UserLogout(Resource):
+    """
+    User log out
+    """
 
     @jwt_required
     def post(self):
         """
         User log out
         """
-        from app import blacklist
-
         jti = get_raw_jwt()['jti']
-        blacklist.add(jti)
+        BLACKLIST.add(jti)
         response = {
             'message': "Successfully logged out"
         }
@@ -55,6 +66,9 @@ class UserLogout(Resource):
 
 
 class UsersLoginView(Resource):
+    """
+    User registration and login
+    """
 
     def post(self):
         """
@@ -68,16 +82,18 @@ class UsersLoginView(Resource):
         existing_user = users_db.get_user_by_username(args['username'])
         if not existing_user:
             # Create new user
-            hashed_password = bcrypt.generate_password_hash(args['password']).decode('utf-8')
-            user_id = users_db.create_user({'username': args['username'], 'password': hashed_password})
+            hashed_password = BCRYPT.generate_password_hash(args['password']).decode('utf-8')
+            user_id = users_db.create_user({'username': args['username'],
+                                            'password': hashed_password})
             jwt = create_access_token(str(user_id))
             response, status = {
-                'message': 'User <{0}> was successfully created: id={1}'.format(args['username'], user_id),
+                'message': 'User <{0}> was successfully created: id={1}'.format(args['username'],
+                                                                                user_id),
                 'jwt': jwt
             }, 201
         else:
             # check password of existing user and create new jwt token
-            if bcrypt.check_password_hash(existing_user[0]['password'], args['password']):
+            if BCRYPT.check_password_hash(existing_user[0]['password'], args['password']):
                 jwt = create_access_token(str(existing_user[0]['_id']))
                 response, status = {
                     'message': 'User <{0}> was successfully logged in'.format(existing_user[0]['username']),

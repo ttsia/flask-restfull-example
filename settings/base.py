@@ -52,3 +52,9 @@ class Config(object):
         "report_directory_name": "data",
         "report_file_name": "report.txt"
     }
+
+    """
+    Basic Auth Credentials
+    """
+    BASIC_AUTH_USERNAME = os.environ.get('BASIC_AUTH_USERNAME')
+    BASIC_AUTH_PASSWORD = os.environ.get('BASIC_AUTH_PASSWORD')

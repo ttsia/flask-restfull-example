@@ -5,7 +5,9 @@
 # Created: 2019-05-06
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
-
+"""
+Users urls
+"""
 from flask import Blueprint
 from flask_restful import Api
 from api.users.views import UsersView, UsersLoginView, UserLogout, UserView
