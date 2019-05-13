@@ -63,7 +63,9 @@ class Config(object):
     PYLINT_SETTINGS = {
         "include": ['api/.', 'database/.', 'settings/.', 'web/.', 'app.py'],
         "report_directory_name": "data",
-        "report_file_name": "report.txt"
+        "report_file_name": "report.txt",
+        "config_directory_name": "settings",
+        "config_file_name": "pylintrc"
     }
 
     """

@@ -13,7 +13,6 @@ class Item(Resource):
     """
 
     def get(self, item_id):
-        # pylint: disable=R0201
         """
         Get item by id
         """
@@ -27,7 +26,6 @@ class Item(Resource):
             return Response(dumps(response), status=400, mimetype='application/json')
 
     def delete(self, item_id):
-        # pylint: disable=R0201
         """
         Delete item by id
         """
@@ -41,7 +39,6 @@ class Item(Resource):
             return Response(dumps(response), status=400, mimetype='application/json')
 
     def put(self, item_id):
-        # pylint: disable=R0201
         """
         Update item by id
         """
@@ -62,7 +59,6 @@ class ItemList(Resource):
     """
 
     def get(self):
-        # pylint: disable=R0201
         """
         Get items list
         """
@@ -71,7 +67,6 @@ class ItemList(Resource):
         return Response(dumps(response), mimetype='application/json')
 
     def post(self):
-        # pylint: disable=R0201
         """
         Create new item
         """
