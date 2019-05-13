@@ -106,5 +106,3 @@ venv.bak/
 # idea
 .idea/
 static/data
-
-settings/secret.py

@@ -2,30 +2,10 @@
 Base configuration setup
 """
 import os
-import string
-import random
 import datetime
-from .secret import SECRET_KEY
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = '{}/{}'.format(BASE_DIR, 'static')
-
-
-def ensure_secret_key():
-    """Checks that secret.py exists in settings dir.
-    If not, creates one with a random generated SECRET_KEY setting.
-    """
-
-    secret_path = os.path.join(BASE_DIR, 'settings', 'secret.py')
-    if not os.path.exists(secret_path):
-        secret_key = ''.join(
-            random.choice(string.ascii_uppercase + string.digits) for _ in range(16)
-        )
-        with open(secret_path, 'w') as secret_file:
-            secret_file.write('SECRET_KEY = \'' + secret_key + '\'\n')
-
-ensure_secret_key()
 
 
 class Config(object):
@@ -37,7 +17,7 @@ class Config(object):
     BASE_DIR = BASE_DIR
     STATIC_DIR = STATIC_DIR
 
-    JWT_SECRET_KEY = SECRET_KEY
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'Pikachu')
     JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=5)
     JWT_BLACKLIST_ENABLED = True
     JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
@@ -65,7 +45,7 @@ class Config(object):
         "report_directory_name": "data",
         "report_file_name": "report.txt",
         "config_directory_name": "settings",
-        "config_file_name": "pylintrc"
+        "config_file_name": ".pylintrc"
     }
 
     """
