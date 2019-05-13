@@ -11,10 +11,9 @@ Blueprint registration for full 'api' module
 from api.items.urls import ITEMS_BLUEPRINT
 from api.metrics.urls import METRICS_BLUEPRINT
 from api.users.urls import USERS_BLUEPRINT
-from web.common.urls import common_blueprint
 
 
-def register_blueprints(app):
+def register_api_blueprints(app):
     """
     register urls for 'api' module
     :param app: current Flask app
@@ -23,13 +22,8 @@ def register_blueprints(app):
     # users app views
     app.register_blueprint(USERS_BLUEPRINT)
 
-    # templates app views
-    app.register_blueprint(common_blueprint)
-
     # items app views
     app.register_blueprint(ITEMS_BLUEPRINT)
 
     # metrics app views
     app.register_blueprint(METRICS_BLUEPRINT)
-
-    return True
