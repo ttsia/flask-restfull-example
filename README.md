@@ -7,10 +7,10 @@ Python 2.7
 2. pip install -r requirements.txt
 3. python -m flask run
 
-## testing
-# pytest command:
-pytest
+## Testing
+#### pytest command:
+- pytest
 
-# coverage command:
-coverage run -m pytest
-coverage report
+#### coverage commands:
+- coverage run -m pytest
+- coverage report
