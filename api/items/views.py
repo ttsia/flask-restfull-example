@@ -1,3 +1,6 @@
+"""
+Items endpoints handling
+"""
 from flask_restful import Resource
 from flask import request, Response
 from bson.json_util import dumps
@@ -10,33 +13,45 @@ class Item(Resource):
     """
 
     def get(self, item_id):
+        # pylint: disable=R0201
+        """
+        Get item by id
+        """
         response = items.get_item(item_id)
         try:
             return Response(dumps(response), mimetype='application/json')
-        except Exception as e:
+        except Exception as ex:
             response = {
-                "error": str(e)
+                "error": str(ex)
             }
             return Response(dumps(response), status=400, mimetype='application/json')
 
     def delete(self, item_id):
+        # pylint: disable=R0201
+        """
+        Delete item by id
+        """
         items.delete_item(item_id)
         try:
             return Response(status=204)
-        except Exception as e:
+        except Exception as ex:
             response = {
-                "error": str(e)
+                "error": str(ex)
             }
             return Response(dumps(response), status=400, mimetype='application/json')
 
     def put(self, item_id):
+        # pylint: disable=R0201
+        """
+        Update item by id
+        """
         item_data = request.get_json()
         response = items.update_item(item_id, item_data)
         try:
             return Response(dumps(response), mimetype='application/json')
-        except Exception as e:
+        except Exception as ex:
             response = {
-                "error": str(e)
+                "error": str(ex)
             }
             return Response(dumps(response), status=400, mimetype='application/json')
 
@@ -47,10 +62,19 @@ class ItemList(Resource):
     """
 
     def get(self):
+        # pylint: disable=R0201
+        """
+        Get items list
+        """
+        # pylint: disable=R0201
         response = items.get_all_items()
         return Response(dumps(response), mimetype='application/json')
 
     def post(self):
+        # pylint: disable=R0201
+        """
+        Create new item
+        """
         item_data = request.get_json()
         response = items.create_item(item_data)
         return Response(dumps(response), status=201, mimetype='application/json')

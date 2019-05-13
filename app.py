@@ -1,43 +1,33 @@
+"""
+App creation
+"""
 from flask import Flask
-from flask_jwt_extended import JWTManager
 from settings import current_config
-from web.common.urls import common_blueprint
-from api.metrics.urls import METRICS_BLUEPRINT
-from api.users.urls import USERS_BLUEPRINT
-from api.items.urls import ITEMS_BLUEPRINT
+from settings.basic_auth import BASIC_AUTH
+from settings.jwt_auth import JWT
+from api.urls import register_blueprints
 
 
 def create_app(config=None):
+    """
+    :param config:
+    :return:
+    """
     app = Flask(__name__)
     app.config.from_object(config)
 
     # set the absolute path to the static folder
     app.static_folder = app.config.get('STATIC_DIR')
 
-    # TODO replace all blueprint registration on separate file
-
-    # users app views
-    app.register_blueprint(USERS_BLUEPRINT)
-
-    # templates app views
-    app.register_blueprint(common_blueprint)
-
-    # items app views
-    app.register_blueprint(ITEMS_BLUEPRINT)
-
-    # metrics app views
-    app.register_blueprint(METRICS_BLUEPRINT)
+    # blueprints registration
+    register_blueprints(app)
 
     # jwt initialization
-    jwt = JWTManager(app)
-    blacklist = set()
+    JWT.init_app(app)
 
-    @jwt.token_in_blacklist_loader
-    def check_if_token_in_blacklist(decrypted_token):
-        jti = decrypted_token['jti']
-        return jti in blacklist
+    # basic auth initialization
+    BASIC_AUTH.init_app(app)
 
     return app
-
 
 APP = create_app(current_config)

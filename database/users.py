@@ -1,3 +1,6 @@
+"""
+User object management in MongoDB
+"""
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 from . import get_client
