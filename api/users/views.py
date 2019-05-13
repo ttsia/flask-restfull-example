@@ -5,6 +5,9 @@
 # Created: 2019-05-06
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
+"""
+Users endpoints handling
+"""
 from bson.json_util import dumps
 from flask import Response
 from flask_bcrypt import Bcrypt
@@ -13,14 +16,19 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 from flask_restful import Resource, reqparse
 
 from database import users as users_db
+from settings.jwt_auth import BLACKLIST
 
 BCRYPT = Bcrypt()
 
 
 class UsersView(Resource):
+    """
+    Users list
+    """
 
     @jwt_required
     def get(self):
+        # pylint: disable=R0201
         """
         Getting all users
         """
@@ -29,9 +37,13 @@ class UsersView(Resource):
 
 
 class UserView(Resource):
+    """
+    User info
+    """
 
     @jwt_required
     def get(self):
+        # pylint: disable=R0201
         """
         Getting info about user from JWT
         """
@@ -40,16 +52,18 @@ class UserView(Resource):
 
 
 class UserLogout(Resource):
+    """
+    User log out
+    """
 
     @jwt_required
     def post(self):
+        # pylint: disable=R0201
         """
         User log out
         """
-        from app import blacklist
-
         jti = get_raw_jwt()['jti']
-        blacklist.add(jti)
+        BLACKLIST.add(jti)
         response = {
             'message': "Successfully logged out"
         }
@@ -57,8 +71,12 @@ class UserLogout(Resource):
 
 
 class UsersLoginView(Resource):
+    """
+    User registration and login
+    """
 
     def post(self):
+        # pylint: disable=R0201
         """
         User registration and login
         """
@@ -106,8 +124,13 @@ class UsersLoginView(Resource):
 
 
 class TokenRefresh(Resource):
+    """
+    Refresh token handler
+    """
+
     @jwt_refresh_token_required
     def post(self):
+        # pylint: disable=R0201
         """
         The jwt_refresh_token_required decorator insures a valid refresh
         token is present in the request before calling this endpoint. We

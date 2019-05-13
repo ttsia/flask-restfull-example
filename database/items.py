@@ -1,3 +1,6 @@
+"""
+Item object management in MongoDB
+"""
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 from . import get_client
@@ -13,6 +16,7 @@ def get_all_items():
     response = ITEMS_DB.items.find()
     return list(response)
 
+
 def get_item(item_id):
     """
     :return single item
@@ -23,6 +27,7 @@ def get_item(item_id):
     except InvalidId as ex:
         return ex
 
+
 def create_item(item_data):
     """
     :param item_data
@@ -31,6 +36,7 @@ def create_item(item_data):
     """
     response = ITEMS_DB.items.insert_one(item_data)
     return response.inserted_id
+
 
 def update_item(item_id, item_data):
     """
@@ -46,6 +52,7 @@ def update_item(item_id, item_data):
         return response.acknowledged
     except InvalidId as ex:
         return ex
+
 
 def delete_item(item_id):
     """

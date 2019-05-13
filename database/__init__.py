@@ -1,3 +1,6 @@
+"""
+Database initialization
+"""
 from pymongo import MongoClient
 from settings import current_config
 
