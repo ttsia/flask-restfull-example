@@ -1,3 +1,6 @@
+"""
+Application configuration initialization
+"""
 import os
 
 from settings.test import TestConfig

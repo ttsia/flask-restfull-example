@@ -1,7 +1,12 @@
+"""
+Base configuration setup
+"""
 import os
 import string
 import random
 import datetime
+from .secret import SECRET_KEY
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = '{}/{}'.format(BASE_DIR, 'static')
@@ -20,12 +25,13 @@ def ensure_secret_key():
         with open(secret_path, 'w') as secret_file:
             secret_file.write('SECRET_KEY = \'' + secret_key + '\'\n')
 
-
 ensure_secret_key()
-from .secret import SECRET_KEY
 
 
 class Config(object):
+    """
+    Base configuration
+    """
     DEBUG = False
 
     BASE_DIR = BASE_DIR

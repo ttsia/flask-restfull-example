@@ -28,6 +28,7 @@ class UsersView(Resource):
 
     @jwt_required
     def get(self):
+        # pylint: disable=R0201
         """
         Getting all users
         """
@@ -42,6 +43,7 @@ class UserView(Resource):
 
     @jwt_required
     def get(self):
+        # pylint: disable=R0201
         """
         Getting info about user from JWT
         """
@@ -56,6 +58,7 @@ class UserLogout(Resource):
 
     @jwt_required
     def post(self):
+        # pylint: disable=R0201
         """
         User log out
         """
@@ -73,6 +76,7 @@ class UsersLoginView(Resource):
     """
 
     def post(self):
+        # pylint: disable=R0201
         """
         User registration and login
         """
@@ -120,8 +124,13 @@ class UsersLoginView(Resource):
 
 
 class TokenRefresh(Resource):
+    """
+    Refresh token handler
+    """
+
     @jwt_refresh_token_required
     def post(self):
+        # pylint: disable=R0201
         """
         The jwt_refresh_token_required decorator insures a valid refresh
         token is present in the request before calling this endpoint. We
