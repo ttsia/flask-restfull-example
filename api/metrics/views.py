@@ -21,7 +21,6 @@ class MetricsView(MethodView):
     """
     @BASIC_AUTH.required
     def get(self):
-        # pylint: disable=R0201
         """
         GET /metrics
         """

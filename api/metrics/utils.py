@@ -36,10 +36,10 @@ def create_report_dir():
     directory = current_app.config.get('PYLINT_SETTINGS').get('report_directory_name')
     if not directory:
         abort(400, 'MISSING PYLINT_SETTINGS.report_directory_name value')
-    dir_path = os.path.join(current_app.static_folder, directory)
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
-    return dir_path
+    path = os.path.join(current_app.static_folder, directory)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
 
 
 def create_report_file(dir_path):
@@ -54,6 +54,16 @@ def create_report_file(dir_path):
     return path
 
 
+def get_config_opts():
+    """
+    :return: path to pylint configuration file
+    """
+    path = os.path.join(current_app.config.get('PYLINT_SETTINGS').get('config_directory_name', ""), current_app.config.get('PYLINT_SETTINGS').get('config_file_name', ""))
+    if not os.path.exists(path):
+        return ""
+    return "  --rcfile={0}".format(path)
+
+
 def generate_report():
     """
     Get pylint analization report and write it to file
@@ -61,7 +71,8 @@ def generate_report():
     files = get_files_to_check()
     dir_path = create_report_dir()
     file_path = create_report_file(dir_path)
-    pylint_opts = '--load-plugins pylint_flask'
+    config_opts = get_config_opts()
+    pylint_opts = '--load-plugins pylint_flask' + config_opts
     pylint_stdout, pylint_stderr = epylint.py_run(files + ' ' + pylint_opts, return_std=True)
     with open(file_path, 'w+') as report:
         report.write(pylint_stdout.getvalue())
