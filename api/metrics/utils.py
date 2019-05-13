@@ -26,7 +26,6 @@ def get_files_to_check():
     except TypeError:
         abort(400, 'PYLINT_SETTINGS.INCLUDE items should be strings')
     except Exception as exception:
-        # pylint: disable=W0703
         abort(400, str(exception))
 
 
