@@ -58,7 +58,8 @@ def get_config_opts():
     """
     :return: path to pylint configuration file
     """
-    path = os.path.join(current_app.config.get('PYLINT_SETTINGS').get('config_directory_name', ""), current_app.config.get('PYLINT_SETTINGS').get('config_file_name', ""))
+    path = os.path.join(current_app.config.get('PYLINT_SETTINGS').get('config_directory_name', ""),
+                        current_app.config.get('PYLINT_SETTINGS').get('config_file_name', ""))
     if not os.path.exists(path):
         return ""
     return "  --rcfile={0}".format(path)

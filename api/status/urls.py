@@ -2,14 +2,14 @@
 #
 # Project name: flask-restfull-example
 # File name: urls
-# Created: 2019-05-08
+# Created: 2019-05-14
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
 """
-Metrics urls
+Status urls
 """
-from api.metrics.views import MetricsView
+from api.status.views import StatusView
 
-METRIC_URLS = [
-    ('/metrics', MetricsView.as_view('metrics'))
+STATUS_URLS = [
+    ('/status', StatusView.as_view('status'))
 ]

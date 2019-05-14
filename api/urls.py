@@ -8,22 +8,23 @@
 """
 Blueprint registration for full 'api' module
 """
-from api.items.urls import ITEMS_BLUEPRINT
-from api.metrics.urls import METRICS_BLUEPRINT
-from api.users.urls import USERS_BLUEPRINT
+from flask import Blueprint
+from flask_lazyviews import LazyViews
+from api.items.urls import ITEM_URLS
+from api.users.urls import USER_URLS
+from api.metrics.urls import METRIC_URLS
+from api.status.urls import STATUS_URLS
 
+API_BLUEPRINT = Blueprint('api', __name__)
+VIEWS = LazyViews(API_BLUEPRINT)
 
-def register_api_blueprints(app):
-    """
-    register urls for 'api' module
-    :param app: current Flask app
-    :return:
-    """
-    # users app views
-    app.register_blueprint(USERS_BLUEPRINT)
+# Add new urls
+URLS = []
+URLS.extend(ITEM_URLS)
+URLS.extend(USER_URLS)
+URLS.extend(METRIC_URLS)
+URLS.extend(STATUS_URLS)
 
-    # items app views
-    app.register_blueprint(ITEMS_BLUEPRINT)
-
-    # metrics app views
-    app.register_blueprint(METRICS_BLUEPRINT)
+# load views
+for url_name, view_name in URLS:
+    VIEWS.add(url_name, view_name)

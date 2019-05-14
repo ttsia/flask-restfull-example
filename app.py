@@ -5,8 +5,7 @@ from flask import Flask
 from settings import current_config
 from settings.basic_auth import BASIC_AUTH
 from settings.jwt_auth import JWT
-from api.urls import register_api_blueprints
-from web.urls import register_web_blueprints
+from api.urls import API_BLUEPRINT
 
 
 def create_app(config=None):
@@ -21,8 +20,7 @@ def create_app(config=None):
     app.static_folder = app.config.get('STATIC_DIR')
 
     # blueprints registration
-    register_api_blueprints(app)
-    register_web_blueprints(app)
+    app.register_blueprint(API_BLUEPRINT)
 
     # jwt initialization
     JWT.init_app(app)
