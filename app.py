@@ -33,7 +33,7 @@ def create_app(config=None):
     # basic auth initialization
     BASIC_AUTH.init_app(app)
 
-    Swagger(app)
+    Swagger(app, decorators=[BASIC_AUTH.required])
 
     return app
 
