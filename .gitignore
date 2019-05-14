@@ -105,4 +105,4 @@ venv.bak/
 
 # idea
 .idea/
-static/data
+web/common/static/data
