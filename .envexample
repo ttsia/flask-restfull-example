@@ -6,7 +6,7 @@ MONGO_USER=user_name
 MONGO_PASSWORD=user_pwd
 MONGO_HOST=example.mongodb.net
 
-JWT_SECRET_KEY='your very long and super secret key'
+SECRET_KEY='your very long and super secret key'
 
 BASIC_AUTH_USERNAME=BASIC_AUTH_USERNAME
 BASIC_AUTH_PASSWORD=BASIC_AUTH_PASSWORD
