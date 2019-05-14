@@ -2,6 +2,7 @@
 App creation
 """
 from flask import Flask
+from api.status.urls import status_blueprint
 from settings import current_config
 from settings.basic_auth import BASIC_AUTH
 from settings.jwt_auth import JWT
@@ -23,6 +24,8 @@ def create_app(config=None):
     # blueprints registration
     register_api_blueprints(app)
     register_web_blueprints(app)
+
+    app.register_blueprint(status_blueprint)
 
     # jwt initialization
     JWT.init_app(app)
