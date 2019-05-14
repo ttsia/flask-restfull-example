@@ -2,6 +2,7 @@
 App creation
 """
 from flask import Flask
+from flasgger import Swagger
 from settings import current_config
 from settings.basic_auth import BASIC_AUTH
 from settings.jwt_auth import JWT
@@ -31,6 +32,8 @@ def create_app(config=None):
 
     # basic auth initialization
     BASIC_AUTH.init_app(app)
+
+    Swagger(app)
 
     return app
 

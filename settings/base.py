@@ -56,3 +56,8 @@ class Config(object):
     """
     BASIC_AUTH_USERNAME = os.environ.get('BASIC_AUTH_USERNAME')
     BASIC_AUTH_PASSWORD = os.environ.get('BASIC_AUTH_PASSWORD')
+
+    SWAGGER = {
+        'title': 'flask restfull example',
+        'version': 0.1
+    }
