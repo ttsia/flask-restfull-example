@@ -7,9 +7,6 @@ from settings import current_config
 
 @pytest.fixture
 def app():
-    # important step in tests.__init__.py
-    # is loading .env variables
-    # and setting FLASK_ENV to 'test'
     app = create_app(current_config)
     return app
 
