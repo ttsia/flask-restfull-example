@@ -8,16 +8,12 @@
 """
 Users urls
 """
-from flask import Blueprint
-from flask_restful import Api
 from api.users.views import UsersView, UsersLoginView, UserLogout, UserView, TokenRefresh
 
-USERS_BLUEPRINT = Blueprint('users', __name__)
-USERS_URLS = Api(USERS_BLUEPRINT)
-
-# url schema
-USERS_URLS.add_resource(UsersView, '/users')
-USERS_URLS.add_resource(UsersLoginView, '/users/login')
-USERS_URLS.add_resource(UserLogout, '/users/logout')
-USERS_URLS.add_resource(UserView, '/user')
-USERS_URLS.add_resource(TokenRefresh, '/user/refresh')
+USER_URLS = [
+    ('/users', UsersView.as_view('users')),
+    ('/users/login', UsersLoginView.as_view('users/login')),
+    ('/users/logout', UserLogout.as_view('users/logout')),
+    ('/user', UserView.as_view('user')),
+    ('/user/refresh', TokenRefresh.as_view('user/refresh'))
+]

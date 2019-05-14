@@ -5,4 +5,3 @@
 # Created: 2019-05-14
 #
 # Author: Liubov M. <liubov.mikhailova@gmail.com>
-
