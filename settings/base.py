@@ -37,6 +37,8 @@ class Config(object):
     BASE_DIR = BASE_DIR
     STATIC_DIR = STATIC_DIR
 
+    SECRET_KEY = SECRET_KEY
+
     JWT_SECRET_KEY = SECRET_KEY
     JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=5)
     JWT_BLACKLIST_ENABLED = True
