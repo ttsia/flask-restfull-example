@@ -1,5 +1,8 @@
-from flask.views import View
+"""
+Common web app endpoints handling
+"""
 from flask import render_template
+from flask.views import View
 
 
 class RenderTemplateView(View):
